@@ -1,28 +1,21 @@
 <template>
   <div class="gallery">
     <div class="container">
-      <div>
-        <div class="container image-detail">
-          <div class="row">
-            <div class="col-sm-8 col-xs-12">
-              <img :src="selectedImage.imageLink" class="img-responsive">
-            </div>
-            <div class="col-sm-4 col-xs-12">
-              <h1>{{selectedImage.title}}</h1>
-              <p>{{selectedImage.description}}</p>
-            </div>
-          </div>
-        </div>
+      <div class="row">
+        <single-image :selectedImage="selectedImage"></single-image>
+        <image-list :images="images" @emitImage="showImage"></image-list>
       </div>
-      <a @click="showImage(image)" v-for="image in images" href="#">
-        <div class="col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" :src="image.thumbnail" /></div>
-      </a>
     </div>
   </div>
 </template>
 
 <script>
+  import ImageList from './ImageList'
+  import SingleImage from './SingleImage'
+
   export default {
+    name: 'gallery',
+    components: { ImageList, SingleImage },
     data () {
       return {
         selectedImage: '',
@@ -46,7 +39,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   img {
     -webkit-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 1px 6px 1px rgba(0,0,0,0.75);
